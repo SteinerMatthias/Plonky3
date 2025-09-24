@@ -99,12 +99,12 @@ pub const MERSENNE31_RC16_EXTERNAL_FINAL: [[Mersenne31; 16]; 4] = [
 /// Round constants for the 16-width Poseidon2's internal layer on Mersenne-31.
 ///
 /// Generated with https://github.com/SteinerMatthias/poseidon2/blob/main/poseidon2_rust_params.sage.
-pub const MERSENNE31_RC16_INTERNAL: [Mersenne31; 13] = Mersenne31::new_array([
+pub const MERSENNE31_RC16_INTERNAL: [Mersenne31; 14] = Mersenne31::new_array([
     0x7f7ec4bf, 0x0421926f, 0x5198e669, 0x34db3148, 0x4368bafd, 0x66685c7f, 0x78d3249a, 0x60187881,
-    0x76dad67a, 0x0690b437, 0x1ea95311, 0x40e5369a, 0x38f103fc,
+    0x76dad67a, 0x0690b437, 0x1ea95311, 0x40e5369a, 0x38f103fc, 0x1d226a21,
 ]);
 
-/// A default Poseidon2 for BabyBear using the round constants from the Horizon Labs implementation.
+/// A default Poseidon2 for Mersenne-31 using the round constants from the Horizon Labs implementation.
 pub fn default_mersenne31_poseidon2_16() -> Poseidon2Mersenne31<16> {
     Poseidon2::new(
         ExternalLayerConstants::new(
@@ -178,13 +178,14 @@ pub const MERSENNE31_RC24_EXTERNAL_FINAL: [[Mersenne31; 24]; 4] = [
 /// Round constants for the 24-width Poseidon2's internal layer on Mersenne-31.
 ///
 /// Generated with https://github.com/SteinerMatthias/poseidon2/blob/main/poseidon2_rust_params.sage.
-pub const MERSENNE31_RC24_INTERNAL: [Mersenne31; 21] = Mersenne31::new_array([
+pub const MERSENNE31_RC24_INTERNAL: [Mersenne31; 22] = Mersenne31::new_array([
     0x22776a11, 0x5fa34268, 0x1415528d, 0x563fbd14, 0x34f45244, 0x120ea1b6, 0x261368a5,
     0x27665ec1, 0x36be2805, 0x345c4784, 0x17efdcc1, 0x393e6530, 0x6da0b4b8, 0x31e5ded3,
     0x675b27ac, 0x0ae88c30, 0x577841cc, 0x5fe06dec, 0x56b0691a, 0x7242de1f, 0x3c377529,
+    0x339b7523,
 ]);
 
-/// A default Poseidon2 for BabyBear using the round constants from the Horizon Labs implementation.
+/// A default Poseidon2 for Mersenne-31 using the round constants from the Horizon Labs implementation.
 ///
 /// See https://github.com/HorizenLabs/poseidon2/blob/main/plain_implementations/src/poseidon2/poseidon2_instance_babybear.rs
 pub fn default_mersenne31_poseidon2_24() -> Poseidon2Mersenne31<24> {
@@ -387,14 +388,14 @@ mod tests {
     fn test_default_poseidon2_width_16() {
         let mut input: [F; 16] = Mersenne31::new_array([
             894848333, 1437655012, 1200606629, 1690012884, 71131202, 1749206695, 1717947831,
-            120589055, 19776022, 42382981, 1831865506, 724844064, 171220207, 1299207443, 227047920,
-            1783754913,
+            120589055, 19776022, 42382981, 1831865506, 724844064, 171220207, 1299207443,
+            227047920, 1783754913,
         ]);
 
         let expected: [F; 16] = Mersenne31::new_array([
-            124804768, 1061776157, 1354599663, 1698063483, 1707525290, 1055696654, 681384553, 
-            164839086, 1005057913, 1038818352, 163497697, 1226668850, 460781778, 1653334001, 282383089, 
-            1149926638,
+            308402900, 2061234732, 870725557, 568412660, 966471816, 1848291824, 1213980307,
+            470511538, 302681731, 2052060677, 1678921232, 846089144, 1961160501, 2054888173,
+            83626996, 522527806
         ]);
 
         let perm = default_mersenne31_poseidon2_16();
@@ -413,10 +414,10 @@ mod tests {
         ]);
 
         let expected: [F; 24] = Mersenne31::new_array([
-            593798149, 1617609688, 263617074, 1287793771, 1977500783, 1456686149, 118101186, 
-            1686252143, 2092813997, 1369797748, 464259886, 2066616762, 962417128, 1624561132, 
-            2100292027, 1456480646, 475889498, 1470678545, 1559772116, 227074068, 84101050, 
-            1258687969, 2017361949, 174203366,
+            435564187, 1125714415, 828591157, 503053067, 1621627972, 1402610024, 1458119964,
+            1046109902, 285004881, 1704746451, 55943933, 1690258332, 1761570099, 527492989,
+            523448722, 318675076, 2136627959, 591880620, 1826657621, 1192921855, 2082267270,
+            2132782552, 665709128, 1176362777
         ]);
 
         let perm = default_mersenne31_poseidon2_24();
